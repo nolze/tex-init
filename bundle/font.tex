@@ -1,0 +1,41 @@
+%## otf : ...
+\usepackage[deluxe]{otf}
+
+%## inputenc : ...
+\usepackage[utf8]{inputenc}
+
+%## fontenc : ...
+\usepackage[LGR,T1]{fontenc}
+
+%## lmodern : ...
+\usepackage{lmodern}
+
+%## pxcjkcat : ...
+\usepackage[prefernoncjk]{pxcjkcat}
+
+\usepackage{newtxtext,newtxmath} % order sensitive
+
+%# ulem : ...
+\usepackage{ulem}
+
+%# plext : ...
+\usepackage{plext}
+
+%# kenten : ...
+\makeatletter
+\def\kenten#1{%
+  \ifvmode\leavevmode\else\hskip\kanjiskip\fi
+  \setbox1=\hbox to \z@{・\hss}%
+  \ht1=.63zw
+  \@kenten#1\end}
+\def\@kenten#1{%
+  \ifx#1\end \let\next=\relax \else
+    \raise.75zw\copy1\nobreak #1\hskip\kanjiskip\relax
+    \let\next=\@kenten
+  \fi\next}
+\makeatother
+
+%# roman : ...
+\makeatletter
+ \newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
