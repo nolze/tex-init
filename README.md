@@ -31,8 +31,9 @@ latexmk
 * Enhance bibliogprahy bundle
 * `texliveonfly`
 * Think on dependency among bundles
-* Add lightweight-compile mode
-* Think about module-specific configurations
+* Lightweight-compile mode
+* Module-specific configurations
+* Optional build settings in a Rake-like way?
 
 ## Reference
 
