@@ -1,0 +1,68 @@
+%# two dashes and space
+\setlength\bibhang{2.4em}
+\renewcommand*\bibnamedash{\textemdash\textemdash\space}
+
+%# Default formats
+\DeclareNameAlias{sortname}{family-given}
+\DeclareFieldFormat{volume}{#1} % No Vol.
+\DeclareFieldFormat[article]{title}{``#1''}
+\DeclareFieldFormat[article]{journaltitle}{\mkbibitalic{#1}\addcomma\space}
+
+\DefineBibliographyStrings{ngerman}{%
+ andothers = {et\ al\adddot}, %et al. statt u.a.
+ editor = {\mkbibparens{Hg\adddot}}, %Hg. statt Hrsg.
+ editors = {\mkbibparens{Hgg\adddot}}, %Hgg. plural
+ byeditor = {\mkbibparens {Hg\adddot}},
+}
+
+%# No In:
+\renewbibmacro{in:}{}
+
+\DeclareFieldFormat{type}{}
+% \DeclareFieldFormat[article,inbook]{pages}{#1}
+\DeclareFieldFormat*{pages}{#1}
+\DeclareListFormat{language}{}
+\DeclareListFormat{location}{} % location includes address (see manual)
+\DeclareFieldFormat{issn}{}
+\DeclareFieldFormat{isbn}{}
+\DeclareFieldFormat{doi}{}
+\DeclareFieldFormat{url}{}
+\DeclareFieldFormat{urn}{}
+\DeclareFieldFormat{postnote}{#1}
+\DeclareFieldFormat{multipostnote}{#1}
+
+%# ibid in italics
+\renewcommand*{\mkibid}{\mkbibitalic}
+
+\xpatchbibmacro{volume+number+eid}{%
+  \setunit*{\adddot}%
+}{%
+}{}{}
+
+\renewbibmacro*{byeditor+othersstrg}{%
+\setunit*{\addperiod\space}\addperiod\space
+\iffieldequalstr{langid}{ngerman}{%
+{Hg\adddotspace{}v\adddot}
+}{%
+{Ed\adddotspace{}by}
+}
+}
+
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+
+% https://tex.stackexchange.com/questions/12254/biblatex-how-to-remove-the-parentheses-around-the-year-in-authoryear-style
+% See StrongBad's comment
+\xpatchbibmacro{date+extradate}{%
+  \printtext[parens]%
+}{%
+  \setunit*{\addperiod\space}%
+  \addperiod\space%
+  \printtext%
+}{}{}
+
+\makeatletter
+\defbibheading{bibintoc}[\bibname]{%
+    \chapter*{#1}%
+    \addcontentsline{toc}{chapter}{\numberline{}#1}%
+    \markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}}
+\makeatother
